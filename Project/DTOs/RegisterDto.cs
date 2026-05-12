@@ -5,7 +5,7 @@ namespace auth_back.DTOs;
 public class RegisterDto
 {
     [Required]
-    [MinLength(3)]
+    [StringLength(50, MinimumLength = 8)]
     public string Username { get; set; } = string.Empty;
 
     [Required]
@@ -13,6 +13,6 @@ public class RegisterDto
     public string Email { get; set; } = string.Empty;
 
     [Required]
-    [MinLength(6)]
+    [StringLength(50, MinimumLength = 8)]
     public string Password { get; set; } = string.Empty;
 }

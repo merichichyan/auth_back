@@ -14,7 +14,11 @@ public class AuthResponse
 {
     public bool Success { get; set; }
     public string Message { get; set; } = string.Empty;
-    public string? Token { get; set; }
+}
+
+public class LoginResponse
+{
+    public string Token { get; set; } = string.Empty;
 }
 
 public class AuthService
@@ -49,20 +53,16 @@ public class AuthService
     }
 
     // LOGIN
-    public async Task<AuthResponse> Login(LoginDto dto)
+    public async Task<LoginResponse?> Login(LoginDto dto)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == dto.Email);
+        var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == dto.Username);
+        
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
-            return new AuthResponse { Success = false, Message = "Invalid email or password" };
+            return null;
 
         var token = CreateToken(user);
 
-        return new AuthResponse 
-        { 
-            Success = true, 
-            Message = "Login success", 
-            Token = token 
-        };
+        return new LoginResponse { Token = token };
     }
 
     private string CreateToken(User user)

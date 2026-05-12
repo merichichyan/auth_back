@@ -31,8 +31,8 @@ public class AuthController : ControllerBase
     {
         var result = await _authService.Login(dto);
 
-        if (!result.Success)
-            return Unauthorized(result);
+        if (result == null)
+            return Unauthorized(new { Message = "Invalid username or password" });
 
         return Ok(result);
     }
