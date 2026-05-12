@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/merichichyan/Desktop/auth_full stack/auth_back/auth_back.csproj": {}
+    "C:\\Users\\Meriko\\StudioProjects\\auth_back\\auth_back.csproj": {}
   },
   "projects": {
-    "/Users/merichichyan/Desktop/auth_full stack/auth_back/auth_back.csproj": {
+    "C:\\Users\\Meriko\\StudioProjects\\auth_back\\auth_back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/merichichyan/Desktop/auth_full stack/auth_back/auth_back.csproj",
+        "projectUniqueName": "C:\\Users\\Meriko\\StudioProjects\\auth_back\\auth_back.csproj",
         "projectName": "auth_back",
-        "projectPath": "/Users/merichichyan/Desktop/auth_full stack/auth_back/auth_back.csproj",
-        "packagesPath": "/Users/merichichyan/.nuget/packages/",
-        "outputPath": "/Users/merichichyan/Desktop/auth_full stack/auth_back/obj/",
+        "projectPath": "C:\\Users\\Meriko\\StudioProjects\\auth_back\\auth_back.csproj",
+        "packagesPath": "C:\\Users\\Meriko\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Meriko\\StudioProjects\\auth_back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/merichichyan/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Meriko\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net10.0"
@@ -44,11 +44,11 @@
         "net10.0": {
           "targetAlias": "net10.0",
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+            "BCrypt.Net-Next": {
               "target": "Package",
-              "version": "[10.0.7, )"
+              "version": "[4.2.0, )"
             },
-            "Microsoft.AspNetCore.OpenApi": {
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",
               "version": "[10.0.7, )"
             },
@@ -92,7 +92,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/10.0.203/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.203/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",
