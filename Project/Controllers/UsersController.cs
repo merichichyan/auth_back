@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using auth_back.Data;
 using auth_back.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace auth_back.Controllers;
 
 [ApiController]
 [Route("api/users")]
+[Authorize]
 public class UsersController : ControllerBase
 {
     private readonly AppDbContext _context;
