@@ -317,3 +317,5 @@ C:\Users\Meriko\StudioProjects\auth_back\obj\Debug\net10.0\refint\auth_back.dll
 C:\Users\Meriko\StudioProjects\auth_back\obj\Debug\net10.0\auth_back.pdb
 C:\Users\Meriko\StudioProjects\auth_back\obj\Debug\net10.0\auth_back.genruntimeconfig.cache
 C:\Users\Meriko\StudioProjects\auth_back\obj\Debug\net10.0\ref\auth_back.dll
+C:\Users\Meriko\StudioProjects\auth_back\bin\Debug\net10.0\AutoMapper.dll
+C:\Users\Meriko\StudioProjects\auth_back\bin\Debug\net10.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

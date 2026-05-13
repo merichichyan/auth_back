@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using auth_back.Data;
-using auth_back.Models;
+using auth_back.DTOs;
+using auth_back.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace auth_back.Controllers;
@@ -11,62 +10,71 @@ namespace auth_back.Controllers;
 [Authorize]
 public class UsersController : ControllerBase
 {
-    private readonly AppDbContext _context;
+    private readonly IUserService _userService;
 
-    public UsersController(AppDbContext context)
+    public UsersController(IUserService userService)
     {
-        _context = context;
+        _userService = userService;
     }
 
-
     [HttpGet]
-    public async Task<IActionResult> GetUsers()
+    public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
     {
-        var users = await _context.Users.ToListAsync();
-
+        var users = await _userService.GetAllUsersAsync();
         return Ok(users);
     }
 
+    [HttpGet("{id}")]
+    public async Task<ActionResult<UserDto>> GetUserById(int id)
+    {
+        var userDto = await _userService.GetUserByIdAsync(id);
 
-[HttpGet("{id}")]
-public async Task<IActionResult> GetUserById(int id)
-{
-    var user = await _context.Users.FindAsync(id);
+        if (userDto == null)
+            return NotFound(new { Message = "User not found" });
 
-    if (user == null)
-        return NotFound(new { Message = "User not found" });
+        return Ok(userDto);
+    }
 
-    return Ok(user);
-}
+    [HttpPost]
+    public async Task<ActionResult<UserDto>> CreateUser(CreateUserDto createUserDto)
+    {
+        try
+        {
+            var userDto = await _userService.CreateUserAsync(createUserDto);
+            return CreatedAtAction(nameof(GetUserById), new { id = userDto.Id }, userDto);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new { Message = ex.Message });
+        }
+    }
 
-[HttpPut("{id}")]
-public async Task<IActionResult> UpdateUser(int id, User updatedUser)
-{
-    var user = await _context.Users.FindAsync(id);
+    [HttpPut("{id}")]
+    public async Task<ActionResult<UserDto>> UpdateUser(int id, UpdateUserDto updatedUserDto)
+    {
+        try
+        {
+            var userDto = await _userService.UpdateUserAsync(id, updatedUserDto);
 
-    if (user == null)
-        return NotFound(new { Message = "User not found" });
+            if (userDto == null)
+                return NotFound(new { Message = "User not found" });
 
-    user.Username = updatedUser.Username;
-    user.Email = updatedUser.Email;
+            return Ok(userDto);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new { Message = ex.Message });
+        }
+    }
 
-    await _context.SaveChangesAsync();
+    [HttpDelete("{id}")]
+    public async Task<ActionResult<UserDto>> DeleteUser(int id)
+    {
+        var userDto = await _userService.DeleteUserAsync(id);
 
-    return Ok(new { Message = "User updated successfully" });
-}
+        if (userDto == null)
+            return NotFound(new { Message = "User not found" });
 
-[HttpDelete("{id}")]
-public async Task<IActionResult> DeleteUser(int id)
-{
-    var user = await _context.Users.FindAsync(id);
-
-    if (user == null)
-        return NotFound(new { Message = "User not found" });
-
-    _context.Users.Remove(user);
-
-    await _context.SaveChangesAsync();
-
-    return Ok(new { Message = "User deleted successfully" });
-}
+        return Ok(userDto);
+    }
 }

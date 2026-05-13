@@ -8,9 +8,9 @@ namespace auth_back.Controllers;
 [Route("api/auth")]
 public class AuthController : ControllerBase
 {
-    private readonly AuthService _authService;
+    private readonly IAuthService _authService;
 
-    public AuthController(AuthService authService)
+    public AuthController(IAuthService authService)
     {
         _authService = authService;
     }
@@ -18,18 +18,21 @@ public class AuthController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterDto dto)
     {
-        var result = await _authService.Register(dto);
-
-        if (!result.Success)
-            return BadRequest(result);
-
-        return Ok(result);
+        try
+        {
+            var userDto = await _authService.RegisterAsync(dto);
+            return Ok(userDto);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return Conflict(new { Message = ex.Message });
+        }
     }
 
     [HttpPost("login")]
     public async Task<IActionResult> Login(LoginDto dto)
     {
-        var result = await _authService.Login(dto);
+        var result = await _authService.LoginAsync(dto);
 
         if (result == null)
             return Unauthorized(new { Message = "Invalid username or password" });
@@ -37,3 +40,4 @@ public class AuthController : ControllerBase
         return Ok(result);
     }
 }
+
