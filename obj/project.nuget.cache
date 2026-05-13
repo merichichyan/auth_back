@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "9z+WTxkNDeQ=",
+  "dgSpecHash": "8BrIZ8CvuC0=",
   "success": true,
   "projectFilePath": "C:\\Users\\Meriko\\StudioProjects\\auth_back\\auth_back.csproj",
   "expectedPackageFiles": [
@@ -26,12 +26,12 @@
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\10.0.7\\microsoft.entityframeworkcore.tools.10.0.7.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.extensions.dependencymodel\\10.0.7\\microsoft.extensions.dependencymodel.10.0.7.nupkg.sha512",
-    "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.0.1\\microsoft.identitymodel.abstractions.8.0.1.nupkg.sha512",
+    "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.abstractions\\8.18.0\\microsoft.identitymodel.abstractions.8.18.0.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.jsonwebtokens\\8.0.1\\microsoft.identitymodel.jsonwebtokens.8.0.1.nupkg.sha512",
-    "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.logging\\8.0.1\\microsoft.identitymodel.logging.8.0.1.nupkg.sha512",
+    "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.logging\\8.18.0\\microsoft.identitymodel.logging.8.18.0.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.protocols\\8.0.1\\microsoft.identitymodel.protocols.8.0.1.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.protocols.openidconnect\\8.0.1\\microsoft.identitymodel.protocols.openidconnect.8.0.1.nupkg.sha512",
-    "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.0.1\\microsoft.identitymodel.tokens.8.0.1.nupkg.sha512",
+    "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.identitymodel.tokens\\8.18.0\\microsoft.identitymodel.tokens.8.18.0.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.openapi\\1.6.14\\microsoft.openapi.1.6.14.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\microsoft.visualstudio.solutionpersistence\\1.0.52\\microsoft.visualstudio.solutionpersistence.1.0.52.nupkg.sha512",
     "C:\\Users\\Meriko\\.nuget\\packages\\mono.texttemplating\\3.0.0\\mono.texttemplating.3.0.0.nupkg.sha512",
