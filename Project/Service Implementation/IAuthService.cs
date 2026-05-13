@@ -5,5 +5,6 @@ namespace auth_back.Services;
 public interface IAuthService
 {
     Task<UserDto> RegisterAsync(RegisterDto registerDto);
-    Task<LoginResponse?> LoginAsync(LoginDto loginDto);
+    Task<AuthResponseDto?> LoginAsync(LoginDto loginDto);
+    Task<AuthResponseDto?> RefreshTokenAsync(RefreshTokenDto refreshTokenDto);
 }

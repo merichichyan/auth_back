@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Security.Cryptography;
 
 namespace auth_back.Services;
 
@@ -38,16 +39,48 @@ public class AuthService : IAuthService
         return _mapper.Map<UserDto>(user);
     }
 
-    public async Task<LoginResponse?> LoginAsync(LoginDto dto)
+    public async Task<AuthResponseDto?> LoginAsync(LoginDto dto)
     {
         var user = await _context.Users.FirstOrDefaultAsync(x => x.Username == dto.Username);
         
         if (user == null || !BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash))
             return null;
 
-        var token = CreateToken(user);
+        var accessToken = CreateToken(user);
+        var refreshToken = GenerateRefreshToken();
 
-        return new LoginResponse { Token = token };
+        user.RefreshToken = refreshToken;
+        user.RefreshTokenExpiry = DateTime.Now.AddDays(7);
+
+        await _context.SaveChangesAsync();
+
+        return new AuthResponseDto 
+        { 
+            AccessToken = accessToken,
+            RefreshToken = refreshToken
+        };
+    }
+
+    public async Task<AuthResponseDto?> RefreshTokenAsync(RefreshTokenDto refreshTokenDto)
+    {
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.RefreshToken == refreshTokenDto.RefreshToken);
+
+        if (user == null || user.RefreshTokenExpiry < DateTime.Now)
+            return null;
+
+        var newAccessToken = CreateToken(user);
+        var newRefreshToken = GenerateRefreshToken();
+
+        user.RefreshToken = newRefreshToken;
+        user.RefreshTokenExpiry = DateTime.Now.AddDays(7);
+
+        await _context.SaveChangesAsync();
+
+        return new AuthResponseDto
+        {
+            AccessToken = newAccessToken,
+            RefreshToken = newRefreshToken
+        };
     }
 
     private string CreateToken(User user)
@@ -65,7 +98,7 @@ public class AuthService : IAuthService
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.Now.AddDays(1),
+            Expires = DateTime.Now.AddMinutes(15), // Shorter expiry for access token
             SigningCredentials = creds,
             Issuer = _configuration.GetSection("Jwt:Issuer").Value,
             Audience = _configuration.GetSection("Jwt:Audience").Value
@@ -76,4 +109,12 @@ public class AuthService : IAuthService
 
         return tokenHandler.WriteToken(token);
     }
-}
+
+    private string GenerateRefreshToken()
+    {
+        var randomNumber = new byte[32];
+        using var rng = RandomNumberGenerator.Create();
+        rng.GetBytes(randomNumber);
+        return Convert.ToBase64String(randomNumber);
+    }
+}
